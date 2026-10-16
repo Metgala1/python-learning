@@ -1,0 +1,5 @@
+I am learning Python file handling.I am learning Python file handling.I am learning Python file handling.
+Name: Roger 
+Age: 26
+score: 96
+User logged inProgram started

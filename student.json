@@ -1,0 +1,10 @@
+{
+    "name": "Roger",
+    "age": 23,
+    "country": "Cameroon",
+    "skills": [
+        "Python",
+        "JavaScript",
+        "React"
+    ]
+}

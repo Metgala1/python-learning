@@ -1,8 +1,17 @@
-import os
+import csv
 
-with open("note.txt" , "r" , encoding="utf-8") as file:
-    content = file.read()
+students = [
+    {"Name": "Roger", "Score": 85},
+    {"Name": "Mary", "Score": 92},
+    {"Name": "John", "Score": 78},
+    {"Name": "David", "Score": 96}
+]
+header = ["Name" , "Score"]
 
-print(content)
+with open("score.csv" , "w" , encoding="utf-8") as file:
+    writer = csv.DictWriter(file , fieldnames=header)
+    writer.writeheader()
+    writer.writerows(students)
 
-print(os.getcwd())
+print("Successful")
+    
