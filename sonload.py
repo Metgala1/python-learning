@@ -1,7 +1,8 @@
-import json
+import json , os
+from pathlib import Path
 
-json_text = {"name": "Roger"}
+file_path = Path("note.txt")
 
-student = json.load(json_text)
+content = file_path.read_text(encoding="utf-8")
 
-print(student)
+print(content)

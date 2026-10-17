@@ -1,3 +1,6 @@
-numbers = [1, 2, 3, 4, 5, 6]
+from pathlib import Path
 
-print([num ** 2 for num in numbers if num % 2 == 0])
+folder = Path("documents")
+
+for file_path in folder.glob("*.json"):
+    print(file_path)
