@@ -1,1 +1,2 @@
-Learning pythin everydat!
+Hello Python
+This shit feels good

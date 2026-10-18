@@ -1,33 +1,72 @@
 from pathlib import Path
 import shutil
 
-folder_path = Path("downloads")
-text_path = Path("text")
-pdf_path = Path("Pdf")
-json_path = Path("Jsons")
-photo_path = Path("Photos")
-python_path = Path("Python")
-csv_path = Path("Csvs")
+# Locate the folder containing this script.
+script_directory = Path(__file__).resolve().parent
 
-for p in (text_path, pdf_path, json_path, photo_path, python_path, csv_path):
-    p.mkdir()
+# Choose the folder we want to organize.
+downloads_folder = "downloads"
 
-for file_path in folder_path.iterdir():
-    if not file_path.is_file():
-        continue
-    match file_path.suffix:
-        case ".txt":
-            shutil.move(str(file_path) , text_path)
-        case ".pdf":
-            shutil.move(str(file_path) , pdf_path)
-        case ".json":
-            shutil.move(str(file_path) , json_path)
-        case ".jpg":
-            shutil.move(str(file_path) , photo_path)
-        case ".py":
-            shutil.move(str(file_path) , python_path)
-        case ".csv":
-            shutil.move(str(file_path) , csv_path)
-        case _:
-            print("Invalid file")
-            
+# Map extensions to destination folder names.
+categories = {
+    ".pdf": "PDFs",
+    ".jpg": "Images",
+    ".jpeg": "Images",
+    ".png": "Images",
+    ".txt": "Text",
+    ".csv": "CSV",
+    ".py": "Python",
+}
+
+# Check whether the folder exists.
+if not downloads_folder.is_dir():
+    print("The folder to organize does not exist.")
+else:
+    # Examine each item in the folder.
+    for item in downloads_folder.iterdir():
+
+        # Ignore directories.
+        if not item.is_file():
+            continue
+
+        # Normalize the extension.
+        extension = item.suffix.lower()
+
+        # Choose a category.
+        category = categories.get(extension, "Other")
+
+        # Create the destination directory.
+        destination_folder = downloads_folder / category
+        destination_folder.mkdir(exist_ok=True)
+
+        # Build the destination file path.
+        destination_path = destination_folder / item.name
+
+        # Avoid overwriting an existing destination file.
+        if destination_path.exists():
+            print(f"Skipping existing file: {destination_path}")
+            continue
+
+        # Move the file.
+        shutil.move(item, destination_path)
+
+        print(f"Moved {item.name} to {category}/")
+
+    print("Organization complete!")
+    
+    Path("file.txt")	
+# Represents a filesystem path
+# .name	Gets the filename
+# .stem	Gets the filename without its final suffix
+# .suffix	Gets the final extension
+# .suffixes	Gets all suffixes
+# .exists()	Checks whether a path exists
+# .is_file()	Checks whether a path is a regular file
+# .is_dir()	Checks whether a path is a directory
+# .mkdir()	Creates a directory
+# .iterdir()	Lists immediate directory contents
+# .glob()	Finds matching items in one directory
+# .rglob()	Finds matching items recursively
+# .rename()	Renames a path
+# .unlink()	Deletes a file or symbolic link
+# shutil.move()	Moves files or directories
