@@ -82,13 +82,22 @@ def delete_task(tasks):
             return
     print("Task not found")
 
+def view_pending_task(tasks):
+    for task in tasks:
+        status = "completed" if task["completed"] == True else "pending"
+        if not task["completed"]:
+            print(f"Task '{task["title"]}' is still {status}")
+        else:
+            print("No pending task")
+
 def show_menu():
     print("\n========== TASKMASTER ==========")
     print("1. View tasks")
     print("2. Add task")
     print("3. Complete task")
     print("4. Delete task")
-    print("5. Exit")
+    print("5. View pening tasl")
+    print("6. Exit")
     print("================================")
     
 def main():
@@ -97,7 +106,7 @@ def main():
     while True:
         show_menu()
         
-        choice = input("Choose an option (1 - 5): ").strip()
+        choice = input("Choose an option (1 - 6): ").strip()
         
         if choice == "1":
             view_task(tasks) 
@@ -108,6 +117,8 @@ def main():
         elif choice == "4":
             delete_task(tasks)
         elif choice == "5":
+            view_pending_task(tasks)
+        elif choice == "6":
             print("Exiting programm..")
             return
         else:
