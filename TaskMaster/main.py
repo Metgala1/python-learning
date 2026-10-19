@@ -4,11 +4,15 @@ from pathlib import Path
 DATA_FILE = Path(__file__).resolve().parent / "tasks.json"
 
 def load_task():
-    if not DATA_FILE.exists():
-        return []
-    
-    with DATA_FILE.open("r" , encoding="utf-8") as file:
-        return json.load(file)
+   try:
+       with DATA_FILE.open("r" , encoding="utf-8") as file:
+           return json.load(file)
+   except FileNotFoundError:
+       print("No task file exists yet.")
+       return []
+   except json.JSONDecodeError:
+       print("The task file containes invalid JSON.")
+       return []
 
 def save_tasks(tasks):
     with DATA_FILE.open("w" , encoding="utf-8") as file:
@@ -53,19 +57,18 @@ def complete_task(tasks):
     except ValueError:
         print("Please eneter a valid numberic ID.")
         return
-    
-    for task in tasks:
-        if task["id"] == task_id:
-            if task["completed"]:
-                print("This task is already completed")
-                return
-            task["completed"] = True
-            save_tasks(tasks)
-            
-            print(f"Task '{task["title"]}' marked as completed!")
-            return
-    
-    print("Task not found")
+    else:
+        for task in tasks:
+            if task["id"] == task_id:
+                if task["completed"]:
+                    print("This task is already completed")
+                    return
+                task["completed"] = True
+                save_tasks(tasks)
+
+                print(f"Task '{task["title"]}' marked as completed!")
+                return 
+        print("Task not found")
 
 def delete_task(tasks):
     try:
@@ -82,13 +85,17 @@ def delete_task(tasks):
             return
     print("Task not found")
 
-def view_pending_task(tasks):
+def view_pending_tasks(tasks):
+    found_pending = False
+
     for task in tasks:
-        status = "completed" if task["completed"] == True else "pending"
         if not task["completed"]:
-            print(f"Task '{task["title"]}' is still {status}")
-        else:
-            print("No pending task")
+            status = "pending"
+            print(f"Task '{task['title']}' is still {status}")
+            found_pending = True
+
+    if not found_pending:
+        print("No pending tasks.")
 
 def show_menu():
     print("\n========== TASKMASTER ==========")
