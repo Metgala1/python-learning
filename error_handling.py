@@ -1,38 +1,38 @@
-# try:
-#     first_number = int(input("Enter the first number: "))
-#     second_number = int(input("Enter the second number: "))
+try:
+    first_number = int(input("Enter the first number: "))
+    second_number = int(input("Enter the second number: "))
 
-#     result = first_number / second_number
-#     print("Result:", result)
-# except ValueError:
-#     print("Invalid number")
-# except Exception:
-#     print("Something went wrong")
+    result = first_number / second_number
+    print("Result:", result)
+except ValueError:
+    print("Invalid number")
+except Exception:
+    print("Something went wrong")
     
-# file = None
+file = None
 
-# try:
-#     file = open("tasks.json" , "r" , encoding="utf-8")
-#     content = file.read()
-#     print(content)
-# except FileNotFoundError:
-#     print("The task file does not exist")
-# finally:
-#     if file is not None:
-#         file.close()
-#         print("File closed")
+try:
+    file = open("tasks.json" , "r" , encoding="utf-8")
+    content = file.read()
+    print(content)
+except FileNotFoundError:
+    print("The task file does not exist")
+finally:
+    if file is not None:
+        file.close()
+        print("File closed")
         
 
-# def validate_age(age):
-#     if age < 0:
-#         raise ValueError("Age can not be negative.")
-#     return "Age accepted"
+def validate_age(age):
+    if age < 0:
+        raise ValueError("Age can not be negative.")
+    return "Age accepted"
 
-# try:
-#     result = validate_age(-5)
-#     print(result)
-# except ValueError as error:
-#     print("Validation failed:", error)
+try:
+    result = validate_age(-5)
+    print(result)
+except ValueError as error:
+    print("Validation failed:", error)
 
 #Custom exceptions
 
