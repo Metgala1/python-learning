@@ -8,5 +8,15 @@
         "id": 3,
         "title": "Play Games",
         "completed": false
+    },
+    {
+        "id": 4,
+        "title": "Shoot",
+        "completed": false
+    },
+    {
+        "id": 5,
+        "title": "Go to school",
+        "completed": false
     }
 ]

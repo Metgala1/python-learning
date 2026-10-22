@@ -1,22 +1,5 @@
-import json
-from pathlib import Path
+from .storage import save_tasks
 
-DATA_FILE = Path(__file__).resolve().parent / "tasks.json"
-
-def load_task():
-   try:
-       with DATA_FILE.open("r" , encoding="utf-8") as file:
-           return json.load(file)
-   except FileNotFoundError:
-       print("No task file exists yet.")
-       return []
-   except json.JSONDecodeError:
-       print("The task file containes invalid JSON.")
-       return []
-
-def save_tasks(tasks):
-    with DATA_FILE.open("w" , encoding="utf-8") as file:
-        json.dump(tasks , file , indent=4)
 
 def view_task(tasks):
     if not tasks:
@@ -96,39 +79,3 @@ def view_pending_tasks(tasks):
 
     if not found_pending:
         print("No pending tasks.")
-
-def show_menu():
-    print("\n========== TASKMASTER ==========")
-    print("1. View tasks")
-    print("2. Add task")
-    print("3. Complete task")
-    print("4. Delete task")
-    print("5. View pening tasl")
-    print("6. Exit")
-    print("================================")
-    
-def main():
-    tasks = load_task()
-    
-    while True:
-        show_menu()
-        
-        choice = input("Choose an option (1 - 6): ").strip()
-        
-        if choice == "1":
-            view_task(tasks) 
-        elif choice == "2":
-            add_task(tasks)
-        elif choice == "3":
-            complete_task(tasks)
-        elif choice == "4":
-            delete_task(tasks)
-        elif choice == "5":
-            view_pending_task(tasks)
-        elif choice == "6":
-            print("Exiting programm..")
-            return
-        else:
-            print("Invalid choice. Please choose between 1 and 5.")
-if __name__ == "__main__":
-    main()      
