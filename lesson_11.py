@@ -11,4 +11,4 @@ def calculate_discount(price, percentage):
     discount = price * percentage / 100
     return price - discount
 
-print(calculate_discount.__doc__)
+print(calculate_discount.__doc__) 
