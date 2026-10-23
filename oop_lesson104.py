@@ -3,6 +3,11 @@ class BankAccount:
     def __init__(self, owner, balance):
         self.owner = owner
         self._balance = balance
+    
+    @property
+    def balance(self):
+        return self._balance
+    
 
     def deposit(self, amount):
         if amount <= 0:
@@ -19,8 +24,28 @@ class BankAccount:
     def get_balance(self):
         return self._balance
 
+class SavingsAccount(BankAccount):
+    def add_interest(self, rate):
+        if rate < 0:
+            raise ValueError("Interest rate cannot be negative")
+        interest = self.balance * rate / 100
+        self.deposit(interest)
 
-account = BankAccount("Roger", 100_000)
+
+class BusinessAccount(BankAccount):
+    def withdraw(self , amount):
+        if amount < 0:
+            raise ValueError("Amout must be positive")
+        fee = 500
+        total = amount + fee
+        
+        if total > self.balance:
+            raise ValueError("Insufficient balance including fee")
+        
+        self.balance -= total
+        print(f"Withdrawal successful, Fee: {fee} FCFA")
+
+account = BusinessAccount("Roger", 100_000)
 
 
 def show_message():
