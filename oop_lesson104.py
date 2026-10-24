@@ -1,8 +1,13 @@
 
+class TransactionLogger:
+    def log(self, message):
+        print(f"[TRANSACTION] {message}")
+
 class BankAccount:
-    def __init__(self, owner, balance):
+    def __init__(self, owner, balance, logger):
         self.owner = owner
         self._balance = balance
+        self.logger = logger
     
     @property
     def balance(self):
@@ -13,6 +18,7 @@ class BankAccount:
         if amount <= 0:
             raise ValueError("Amount must be positive")
         self._balance += amount
+        self.logger.log(f"{self.owner} deposited {amount} FCFA")
 
     def withdraw(self, amount):
         if amount <= 0:
@@ -20,6 +26,7 @@ class BankAccount:
         if amount > self._balance:
             raise ValueError("Insufficient balance")
         self._balance -= amount
+        self.logger.log(f"{self.owner} withdrew {amount} FCFA")
 
     def get_balance(self):
         return self._balance
@@ -45,7 +52,7 @@ class BusinessAccount(BankAccount):
         self.balance -= total
         print(f"Withdrawal successful, Fee: {fee} FCFA")
 
-account = BusinessAccount("Roger", 100_000)
+account = BankAccount("Roger", 100_000 , TransactionLogger())
 
 
 def show_message():
