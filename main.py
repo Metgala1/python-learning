@@ -1,8 +1,17 @@
-def outer(greeting):
-    message = greeting
-    def inner():
-        print(message)
-    return inner
+from functools import wraps
 
-my_function = outer("Hi")
-my_function()
+def my_decorator(original_func):
+    @wraps(original_func)
+    def wrapper():
+        print("Before")
+        original_func()
+        print("After")
+    
+    return wrapper
+
+@my_decorator
+def greet():
+    """Greet function"""
+    print("Hi, Roger")
+
+greet()
