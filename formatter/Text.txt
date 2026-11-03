@@ -1,0 +1,8 @@
+#black for formatting eg
+black main.py314
+
+#ruff for linter and formatting 
+ruff main.py3
+ruff format main.py
+
+#pyright and mypy for checking python types and annotation

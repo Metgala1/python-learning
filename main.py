@@ -1,17 +1,9 @@
-from functools import wraps
+import logging
 
-def my_decorator(original_func):
-    @wraps(original_func)
-    def wrapper():
-        print("Before")
-        original_func()
-        print("After")
-    
-    return wrapper
+logging.basicConfig(level=logging.DEBUG)
 
-@my_decorator
-def greet():
-    """Greet function"""
-    print("Hi, Roger")
-
-greet()
+logging.debug("This is a debugging message")
+logging.info("Application started")
+logging.warning("Disk space is getting low")
+logging.error("Payment failed")
+logging.critical("Database is unavailable")
